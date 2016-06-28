@@ -511,20 +511,15 @@ class TournamentResource(restful.Resource):
         return response
 
     def put(self, region, id):
-        print "Hii?"
-
         dao = Dao(region, mongo_client=mongo_client)
         if not dao:
             return 'Dao not found', 404
         tournament = None
 
-        print 'trying to read the args'
         args = tournament_put_parser.parse_args()
-        print 'got the args'
 
         try:
             if args['pending']:
-                print "Pending!!"
                 tournament = dao.get_pending_tournament_by_id(ObjectId(id))
                 print tournament
             else:

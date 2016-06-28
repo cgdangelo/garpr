@@ -1296,7 +1296,6 @@ class TestServer(unittest.TestCase):
         #match with both numerical
         raw_dict = {'matches': 123}
         test_data = json.dumps(raw_dict)
-        print test_data
         rv = self.app.put('/norcal/tournaments/' + str(tourney_id), data=test_data, content_type='application/json')
         self.assertEquals(rv.status, '400 BAD REQUEST')
 
@@ -1307,7 +1306,6 @@ class TestServer(unittest.TestCase):
         tournaments_from_db = dao.get_all_tournaments(regions=['texas'])
         the_tourney = tournaments_from_db[0]
         response = self.app.put('/texas/tournaments/' + str(the_tourney.id), data = '{}', content_type='application/json')
-        print response, response.status_code, response.data
         self.assertEquals(response.status_code, 403)
         self.assertEquals(response.data, '"Permission denied"')
 
